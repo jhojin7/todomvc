@@ -1,0 +1,26 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $.get("/tasks", function (tasks) {
+            tasks.forEach(task => {
+                $('#tasks').append($("<li>").text(task.content))
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <h1>TODO</h1>
+    <form action="/tasks" method="post">
+        <input type="text" name="content" id="">
+        <input type="submit" value="Submit">
+    </form>
+    <div id="tasks"></div>
+</body>
+
+</html>
