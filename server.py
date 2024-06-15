@@ -7,7 +7,7 @@ app = FastAPI()
 
 @app.get("/")
 def main():
-    return FileResponse("index.html")
+    return FileResponse("static/index.html")
 
 @app.get("/tasks")
 def list_tasks():
@@ -21,4 +21,4 @@ def add_task(
     resp = add_one_task(content)
     if resp:
         return JSONResponse({"error":str(resp),"content":str(content)},200)
-    return HTMLResponse("index.html")
+    return FileResponse("static/index.html")

@@ -2,7 +2,7 @@ import sqlite3
 import time
 
 def get_all_tasks(sort_by_newest=False)->list:
-    with sqlite3.connect("database.db") as conn:
+    with sqlite3.connect("static/database.db") as conn:
         cursor = conn.cursor()
         keys = "rowid content created_at".split()
         q = f"""select {','.join(keys)} from tasks """
@@ -18,14 +18,14 @@ def get_all_tasks(sort_by_newest=False)->list:
         return ret
     
 def add_one_task(content:str)->int:
-    with sqlite3.connect("database.db") as conn:
+    with sqlite3.connect("static/database.db") as conn:
         cursor = conn.cursor()
         res = cursor.execute(f"insert into tasks(content, created_at) values (?,?)", (str(content), int(time.time())))
         print(res.fetchone())
         return 0
 
 if __name__=="__main__":
-    with sqlite3.connect("database.db") as conn:
+    with sqlite3.connect("static/database.db") as conn:
         cursor = conn.cursor()
         cursor.execute("""create table if not exists tasks 
                         (created_at integer,
