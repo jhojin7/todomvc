@@ -5,22 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script>
-        $.get("/tasks", function (tasks) {
-            tasks.forEach(task => {
-                $('#tasks').append($("<li>").text(task.content))
-            })
-        })
-    </script>
 </head>
 
 <body>
-    <h1>TODO</h1>
-    <form action="/tasks" method="post">
-        <input type="text" name="content" id="">
-        <input type="submit" value="Submit">
-    </form>
+    <h1>title</h1>
+    <header>
+        <textarea id="new_note" rows="10" >textarea</textarea>
+    </header>
     <div id="tasks"></div>
 </body>
-
+<script>
+    // shift+enter
+    function is_shift_enter(event){
+        return event.which==13 && event.shiftKey===true
+    }
+    // $("#new_note").focus()
+    $("#new_note").on('keydown', function(e){
+        if (is_shift_enter(e)){
+            e.preventDefault()
+            let txt = $("#new_note").val()
+            if (txt==="") return
+            console.log(txt)
+            $('#new_note').val("")
+            $('#tasks').append($("<li>").text(txt))
+        }
+    })
+</script>
 </html>
